@@ -1,0 +1,24 @@
+﻿@model List<MultiTenantExample.Models.TenantSiteModel>
+@{
+    ViewData["Title"] = "Home Page";
+    var site = (MultiTenantExample.Models.TenantSiteModel) ViewBag.SelectedSite;
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+@if (site != null)
+{
+    <h2>
+        @site.Name <a href="@Url.Action("UnselectSite", new { site = site.Key })">Logout from site</a>
+    </h2>
+}
+else
+{
+    foreach (var st in Model)
+    {
+        <p><img src="@Url.Content("~/logo/" + st.Logo)" /> @st.Name <a href="@Url.Action("SelectSite", new { site = st.Key })">Select</a></p>
+    }
+}
